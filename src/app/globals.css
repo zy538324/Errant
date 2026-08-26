@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --brand-background: #0a0b0c;
+  --brand-foreground: #f5f5f4;
+  --brand-accent: #bfa78a;
+  --brand-accent-strong: #8f6f54;
+  --brand-panel: #111315;
+  --brand-panel-elevated: #151718;
+  --brand-border: rgba(255, 255, 255, 0.1);
+  --content-width: 80rem;
+  --reading-width: 56rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(191, 167, 138, 0.14), transparent 38%),
+    linear-gradient(to bottom, #09090b, #111315 45%, #09090b);
+}
+
+a {
+  @apply transition-colors;
+}
+
+.content-shell {
+  width: min(calc(100% - 3rem), var(--content-width));
+  margin-inline: auto;
+}
+
+.reading-shell {
+  width: min(calc(100% - 3rem), var(--reading-width));
+  margin-inline: auto;
+}
+
+.panel-surface {
+  border: 1px solid var(--brand-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(17,19,21,0.95));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow {
+  @apply text-xs uppercase tracking-[0.32em] text-stone-400;
+}
