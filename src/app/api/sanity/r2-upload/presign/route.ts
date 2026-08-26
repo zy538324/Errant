@@ -13,16 +13,13 @@ const uploadPresignSchema = z.object({
 function getAllowedUploadOrigins(req: Request) {
   const requestOrigin = req.headers.get("origin")?.trim();
   const appUrl = process.env.APP_URL?.trim().replace(/\/+$/, "");
-  const vercelUrl = process.env.VERCEL_URL?.trim()
-    ? `https://${process.env.VERCEL_URL.trim().replace(/\/+$/, "")}`
-    : null;
+
 
   return Array.from(
     new Set(
       [
         requestOrigin,
         appUrl,
-        vercelUrl,
         "http://localhost:3000",
         "http://127.0.0.1:3333",
       ].filter((value): value is string => Boolean(value)),

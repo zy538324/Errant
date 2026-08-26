@@ -38,7 +38,7 @@ function resolveCheckoutBaseUrl(configuredAppUrl: string | null | undefined, req
     }
   })();
 
-  return normalizedConfigured ?? requestOrigin ?? "https://errant-arts.vercel.app";
+  return normalizedConfigured ?? requestOrigin ?? "http://localhost:3000";
 }
 
 async function artworkHasDownloadSource(artworkId: string) {

@@ -70,7 +70,7 @@ export function ArtworkEditor({ collections = [] }: ArtworkEditorProps) {
     );
 
     // Step 1: request a presigned PUT URL from the server (tiny metadata-only payload,
-    //         never hits Vercel's 4.5 MB body limit).
+    //         never hits server body payload limits).
     const presignResponse = await fetch("/api/uploads/presign", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -93,7 +93,7 @@ export function ArtworkEditor({ collections = [] }: ArtworkEditorProps) {
       headers: Record<string, string>;
     };
 
-    // Step 2: PUT the file directly to Cloudflare R2 — bypasses Vercel completely.
+    // Step 2: PUT the file directly to Cloudflare R2 — bypasses the application server completely.
     const r2Response = await fetch(uploadUrl, {
       method: "PUT",
       headers: uploadHeaders,
@@ -309,8 +309,8 @@ export function ArtworkEditor({ collections = [] }: ArtworkEditorProps) {
         </div>
         <ul className="space-y-3 text-sm leading-7">
           <li>1. Use the collection slug to generate a tidy folder path in R2.</li>
-          <li>2. A presigned PUT URL is requested from the server — only metadata (no file bytes) passes through Vercel.</li>
-          <li>3. The image is uploaded directly from your browser to Cloudflare R2, bypassing Vercel's size limits entirely.</li>
+          <li>2. A presigned PUT URL is requested from the server — only metadata (no file bytes) passes through the web server.</li>
+          <li>3. The image is uploaded directly from your browser to Cloudflare R2, bypassing application server size limits entirely.</li>
           <li>4. A watermarked preview is generated server-side when the artwork is saved.</li>
           <li>5. Original files stay private for fulfilment and downloads.</li>
         </ul>

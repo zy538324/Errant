@@ -12,12 +12,7 @@
     "prisma:migrate": "prisma db push",
     "prisma:reset": "prisma db push --force-reset --skip-generate",
     "prisma:seed": "tsx prisma/seed.ts",
-    "admin:create:prod": "node scripts/create-admin-user.mjs",
-    "vercel:env:pull:prod": "vercel env pull .env.production.local --environment=production",
-    "vercel:prisma:prod": "node scripts/prisma-db-push-with-env.mjs",
-    "vercel:prisma:prod:pull": "npm run vercel:env:pull:prod && node scripts/prisma-db-push-with-env.mjs",
-    "vercel:deploy:prod": "vercel --prod",
-    "vercel:release:prod": "npm run vercel:prisma:prod && npm run vercel:deploy:prod"
+    "admin:create:prod": "node scripts/create-admin-user.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
