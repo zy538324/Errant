@@ -4,7 +4,7 @@ A gallery-grade e-commerce platform for fine art photography with protected prev
 Stripe-secured digital downloads, Sanity Studio content management, and private Cloudflare R2 file delivery.
 
 Built with Next.js 15 (App Router) + TypeScript + Prisma + Neon Postgres + Cloudflare R2 + Stripe + Sanity.
-The app is configured for Vercel-hosted production deployment.
+The app is configured for cPanel Node.js (Phusion Passenger / Application Manager) production deployment.
 
 ---
 
@@ -35,13 +35,12 @@ npm run dev
 
 ---
 
-## Vercel Deployment
+## cPanel Node.js Deployment
 
-```bash
-npm install
-npm run build
-npm run vercel:deploy:prod
-```
+1. Upload or clone the application into your cPanel directory.
+2. In cPanel, open **Setup Node.js App**, set the startup file to `app.js`, set Node version to 18+, and set environment variables.
+3. Run `npm install`, `npx prisma db push`, and `npm run build`.
+4. Start or restart the app in cPanel.
 
 Provide environment variables for:
 - Stripe
@@ -63,7 +62,7 @@ DATABASE_URL_UNPOOLED="postgresql://user:password@direct-host:5432/dbname?sslmod
 
 - Cloudflare R2 stores private high-resolution customer download files.
 - Sanity stores public content and generated website preview images.
-- The preview and watermark routes use `sharp` and are intended to run in the Vercel Node runtime.
+- The preview and watermark routes use `sharp` and run in the Node.js runtime.
 - Run `npm run prisma:migrate` once against Neon before first production checkout traffic.
 
 ### Microsoft 365 / Graph email

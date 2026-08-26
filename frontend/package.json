@@ -1,7 +1,0 @@
-{
-  "name": "errant-arts-frontend-shim",
-  "private": true,
-  "scripts": {
-    "start": "cd /app && exec yarn dev"
-  }
-}
