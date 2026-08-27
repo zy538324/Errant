@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 -H 0.0.0.0",
-    "build": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=512 next build",
+    "build": "next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "postinstall": "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process');const candidates=[process.env.INIT_CWD,process.env.npm_config_local_prefix,'/home/palmvine/repositories/Errant',process.cwd(),path.resolve(process.cwd(),'../../..')].filter(Boolean);let root=candidates.find(p=>fs.existsSync(path.join(p,'prisma/schema.prisma')));if(!root){console.error('[postinstall] Could not locate prisma/schema.prisma in candidate paths:',candidates);process.exit(1);}const schema=path.join(root,'prisma/schema.prisma');console.log('[postinstall] Found schema at:',schema);cp.execSync('npx prisma generate --schema=\"'+schema+'\"',{cwd:root,stdio:'inherit'});\"",
+    "postinstall": "prisma generate",
     "prisma:migrate": "prisma db push",
     "prisma:reset": "prisma db push --force-reset --skip-generate",
     "prisma:seed": "tsx prisma/seed.ts",
