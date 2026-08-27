@@ -1,3 +1,0 @@
-$env:DATABASE_URL = (Get-Content .env.production.local | Where-Object { $_ -like "DATABASE_URL=*" } | ForEach-Object { $_.Substring(13).Trim('"') })
-
-node -e "const {PrismaClient}=require('@prisma/client'); const prisma=new PrismaClient(); (async()=>{ const user=await prisma.user.update({ where:{ username:'Sean.Admin' }, data:{ mfaEnabled:false, mfaSecret:null } }); console.log('MFA reset for:', user.username); await prisma.`$disconnect(); })().catch(async e=>{ console.error(e); await prisma.`$disconnect(); process.exit(1); });"
