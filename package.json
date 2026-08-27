@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 -H 0.0.0.0",
-    "build": "next build",
+    "build": "NODE_OPTIONS=--max_old_space_size=768 next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "postinstall": "prisma generate",
+    "postinstall": "cd /home/palmvine/repositories/Errant && npx prisma generate && npm run build",
     "prisma:migrate": "prisma db push",
     "prisma:reset": "prisma db push --force-reset --skip-generate",
     "prisma:seed": "tsx prisma/seed.ts",
