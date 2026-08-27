@@ -51,6 +51,12 @@ if (r2PublicBaseUrl) {
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  productionBrowserSourceMaps: false,
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+    webpackMemoryOptimizations: true,
+  },
   eslint: {
     // Lint is run separately in development/CI.
     // This avoids environment-specific EPERM spawn failures during production builds.
@@ -81,7 +87,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config) => {
+  webpack: (config, { dev }) => {
+    if (config.cache && !dev) {
+      config.cache = Object.freeze({
+        type: "memory",
+      });
+    }
+
     config.resolve ??= {};
     config.resolve.alias ??= {};
     config.resolve.alias["@/studio/runtime"] = path.resolve(
