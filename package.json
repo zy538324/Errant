@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 -H 0.0.0.0",
-    "build": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=512 next build",
+    "build": "next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "postinstall": "node scripts/postinstall.js",
+    "postinstall": "prisma generate",
     "prisma:migrate": "prisma db push",
     "prisma:reset": "prisma db push --force-reset --skip-generate",
     "prisma:seed": "tsx prisma/seed.ts",

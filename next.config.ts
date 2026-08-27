@@ -51,35 +51,22 @@ if (r2PublicBaseUrl) {
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  productionBrowserSourceMaps: false,
-  experimental: {
-    workerThreads: false,
-    cpus: 1,
-    webpackMemoryOptimizations: true,
-  },
   eslint: {
-    // Lint is run separately in development/CI.
-    // This avoids environment-specific EPERM spawn failures during production builds.
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Type safety is enforced via `npm run typecheck`.
-    // This avoids environment-specific EPERM spawn failures during `next build`.
     ignoreBuildErrors: true,
   },
   images: {
     remotePatterns,
     localPatterns: [
       {
-        // Allow locally-served proxied images that include query parameters
         pathname: "/api/images/**",
       },
       {
-        // Allow the hosted-preview proxy path when we need to fall back to it.
         pathname: "/api/protected-image",
       },
       {
-        // Allow static images served from the public folder (e.g. /logo.png)
         pathname: "/logo.png",
       },
       {
@@ -87,11 +74,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config, { dev }) => {
-    if (!dev) {
-      config.cache = false;
-    }
-
+  webpack: (config) => {
     config.resolve ??= {};
     config.resolve.alias ??= {};
     config.resolve.alias["@/studio/runtime"] = path.resolve(
