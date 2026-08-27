@@ -88,10 +88,8 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config, { dev }) => {
-    if (config.cache && !dev) {
-      config.cache = Object.freeze({
-        type: "memory",
-      });
+    if (!dev) {
+      config.cache = false;
     }
 
     config.resolve ??= {};
