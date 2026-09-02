@@ -1,36 +1,29 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
-    "./resources/**/*.vue",
-    "./app/Livewire/**/*.php",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        background: "#0a0b0c",
-        foreground: "#f5f5f4",
-        brand: {
-          accent: "#bfa78a",
-          strong: "#8f6f54",
-          panel: "#111315",
-          elevated: "#151718",
+export default {
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                serif: ['Great Vibes', ...defaultTheme.fontFamily.serif],
+            },
+            colors: {
+                background: 'var(--brand-background)',
+                foreground: 'var(--brand-foreground)',
+                accent: 'var(--brand-accent)',
+                'accent-strong': 'var(--brand-accent-strong)',
+                panel: 'var(--brand-panel)',
+                'panel-elevated': 'var(--brand-panel-elevated)',
+            },
         },
-      },
-      fontFamily: {
-        serif: ["Georgia", "ui-serif", "serif"],
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        signature: ["Great Vibes", "Allura", "Dancing Script", "cursive"],
-      },
-      boxShadow: {
-        soft: "0 24px 80px rgba(0, 0, 0, 0.35)",
-      },
-      maxWidth: {
-        content: "80rem",
-        reading: "56rem",
-      },
     },
-  },
-  plugins: [],
+    plugins: [],
 };

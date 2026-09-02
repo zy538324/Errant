@@ -1,157 +1,66 @@
-# Errant-Arts
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A gallery-grade e-commerce platform for fine art photography with protected previews,
-Stripe-secured digital downloads, Sanity Studio content management, and private Cloudflare R2 file delivery.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-Built with Next.js 15 (App Router) + TypeScript + Prisma + Neon Postgres + Cloudflare R2 + Stripe + Sanity.
-The app is configured for cPanel Node.js (Phusion Passenger / Application Manager) production deployment.
+## About Laravel
 
----
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## What It Does
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-1. Protected public gallery: every image is served through a signed preview route, with
-   time-limited URLs and no raw storage keys exposed in page markup.
-2. Secure digital checkout: Stripe Checkout handles payment, and successful purchases create
-   download entitlements with capped download counts.
-3. Signed download delivery: `/api/downloads/[entitlementId]` issues short-lived R2 URLs and
-   increments the download counter atomically.
-4. Studio-managed catalogue: Sanity Studio is used for photo details, customer-friendly uploads,
-   SEO fields, reviews and content management.
-5. Digital-download-only storefront: online checkout currently sells licensed digital downloads.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
----
+## Learning Laravel
 
-## Local Development
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-The app can be run locally with:
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-```bash
-npm install
-npm run prisma:migrate
-npm run prisma:seed
-npm run dev
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
----
+## Laravel Sponsors
 
-## cPanel Node.js Deployment
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-1. Upload or clone the application into your cPanel directory.
-2. In cPanel, open **Setup Node.js App**, set the startup file to `app.js`, set Node version to 18+, and set environment variables.
-3. Run `npm install`, `npx prisma db push`, and `npm run build`.
-4. Start or restart the app in cPanel.
+### Premium Partners
 
-Provide environment variables for:
-- Stripe
-- Sanity
-- Cloudflare R2
-- image/download signing secrets
-- Neon Postgres connection strings:
-  - `DATABASE_URL`
-  - `DATABASE_URL_UNPOOLED`, if used for direct schema operations
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-Example Neon URLs:
+## Contributing
 
-```bash
-DATABASE_URL="postgresql://user:password@pooler-host:5432/dbname?sslmode=require"
-DATABASE_URL_UNPOOLED="postgresql://user:password@direct-host:5432/dbname?sslmode=require"
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-### Storage and image processing
+## Code of Conduct
 
-- Cloudflare R2 stores private high-resolution customer download files.
-- Sanity stores public content and generated website preview images.
-- The preview and watermark routes use `sharp` and run in the Node.js runtime.
-- Run `npm run prisma:migrate` once against Neon before first production checkout traffic.
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### Microsoft 365 / Graph email
+## Security Vulnerabilities
 
-Customer login codes and marketing campaigns are sent through Microsoft Graph
-using `POST /users/{sender}/sendMail` rather than Resend or SMTP. Configure an
-Entra app registration with Microsoft Graph application permission `Mail.Send`
-and grant admin consent. The app uses the client credentials flow with
-`https://graph.microsoft.com/.default`.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-Required environment variables:
+## License
 
-- `MS_GRAPH_TENANT_ID`
-- `MS_GRAPH_CLIENT_ID`
-- `MS_GRAPH_CLIENT_SECRET`
-- `MS_GRAPH_SENDER_EMAIL`
-- `MARKETING_FROM_EMAIL`
-- `MARKETING_REPLY_TO_EMAIL`
-- `MS_GRAPH_TRANSACTIONAL_SENDER_EMAIL` or `CUSTOMER_LOGIN_EMAIL_FROM`
-- `CUSTOMER_LOGIN_REPLY_TO`
-
-For least-privilege production setup, scope the Graph app to only the approved
-sender mailbox or mailboxes using Exchange Online application RBAC, or the
-legacy Application Access Policy where that is still the tenant standard.
-Marketing sends are intentionally one message per opted-in subscriber so each
-email has a private unsubscribe token and failures are tracked per recipient.
-
----
-
-## Data Model
-
-```text
-User -1:1- Customer -1:* - Order -1:* - OrderItem -*:1- Artwork
-                      \-*:*- DownloadEntitlement
-Artwork -*:1- Collection
-Artwork -1:* - ArtworkAsset
-BlogPost, AuditLog, Session
-```
-
-Enum-like values are stored as `TEXT` strings and validated at the application layer
-(`src/lib/enums.ts`) to keep the schema portable across hosting environments.
-
----
-
-## Security Posture
-
-- Previews: HMAC-signed URLs with short TTLs and allowed-host validation.
-- Downloads: AES-256-GCM encrypted storage-key tokens with short TTLs and capped download counts.
-- Admin: bcrypt password hashing, TOTP MFA, strict cookies, and brute-force rate limiting.
-- CSP: strict default-src/self posture with Stripe-specific allowances where needed.
-- Payments: no card data touches the app server; Stripe Checkout + signed webhooks only.
-
----
-
-## Content Sources
-
-- Primary content management: Sanity Studio at `/studio`
-- Digital download storage: Cloudflare R2
-- Checkout/order records: Neon Postgres through Prisma
-
-### Sanity -> Stripe/Checkout Sync
-
-If you want pricing/stock changes made in Sanity to flow into checkout automatically:
-
-1. Set `SANITY_WEBHOOK_SECRET` in your app environment.
-2. Add a Sanity webhook that POSTs to `/api/sanity/artwork-sync`.
-3. Include a header `x-sanity-webhook-secret: <SANITY_WEBHOOK_SECRET>`.
-4. Use a projection body that includes:
-   - `slug.current` as `slug`
-   - `shopArtworkId` (optional)
-   - `title`
-   - `description`
-   - `category`
-   - `collectionSlug`
-   - `pricePence`
-   - `currency`
-   - `stockOnHand`
-   - `isPublished`
-
-Checkout always enforces the Prisma inventory/price snapshot at order creation time.
-Checkout also performs an on-demand Sanity slug sync before creating Stripe line items,
-so newly published Sanity artworks become purchasable without manual DB seeding.
-
-### Studio shop image uploads
-
-For sale artwork, use the Studio field labelled **Upload shop image here**. That
-single upload stores the full-resolution customer download in private Cloudflare
-R2 and creates the watermarked Sanity preview used by the public site.
-
-The advanced preview fields are only visible after the R2 download file exists.
-If older artwork has a Sanity preview image but no R2 download file, use
-`/admin/migrations/sanity-images` to backfill those records into R2.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

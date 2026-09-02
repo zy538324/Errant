@@ -1,27 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\AdminController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ShopController::class, 'index']);
+Route::get('/shop', [ShopController::class, 'index']);
 
-Route::get('/shop', function () {
-    return view('shop.index');
-});
+Route::get('/portfolio', [PortfolioController::class, 'index']);
 
-Route::get('/portfolio', function () {
-    return view('portfolio.index');
-});
+Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog/{slug}', [BlogController::class, 'show']);
 
-Route::get('/blog', function () {
-    return view('blog.index');
+Route::get('/about', function () {
+    return view('about');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/admin', [AdminController::class, 'dashboard']);
 });
 
 Route::post('/stripe/webhook', function () {

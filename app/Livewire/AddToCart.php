@@ -13,7 +13,19 @@ class AddToCart extends Component
 
     public function addToCart()
     {
-        $this->dispatch('cart-updated');
+        // TODO: Implement cart functionality
+        // This would typically:
+        // 1. Add to session cart or database
+        // 2. Dispatch event to update cart count
+        // 3. Show success message
+        
+        $this->dispatch('cart-updated', [
+            'artworkId' => $this->artworkId,
+            'quantity' => $this->quantity,
+            'kind' => $this->kind,
+        ]);
+
+        session()->flash('message', 'Added to cart!');
     }
 
     public function render()
