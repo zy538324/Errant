@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
+use App\Models\Concerns\HasCamelTimestamps;
 
 class EmailSubscriber extends Model
 {
+    use GeneratesStringId, HasCamelTimestamps;
     protected $table = 'EmailSubscriber';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -13,6 +16,11 @@ class EmailSubscriber extends Model
     protected $fillable = [
         'id', 'email', 'customerId', 'status', 'consentSource', 'consentVersion',
         'consentText', 'consentedAt', 'unsubscribedAt',
+    ];
+
+    protected $casts = [
+        'consentedAt' => 'datetime',
+        'unsubscribedAt' => 'datetime',
     ];
 
     public function customer()

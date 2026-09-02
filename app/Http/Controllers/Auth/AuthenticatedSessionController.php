@@ -21,7 +21,14 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            if (Auth::user()->role !== 'ADMIN') {
+                Auth::logout();
+
+                return back()->withErrors(['email' => 'This account does not have admin access.']);
+            }
+
             $request->session()->regenerate();
+
             return redirect()->intended('/admin');
         }
 

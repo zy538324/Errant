@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Concerns\GeneratesStringId;
+use App\Models\Concerns\HasCamelTimestamps;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use GeneratesStringId, HasCamelTimestamps;
+    use HasFactory, Notifiable;
 
     protected $table = 'User';
     public $incrementing = false;
@@ -15,6 +19,10 @@ class User extends Authenticatable
 
     protected $fillable = [
         'id', 'email', 'username', 'passwordHash', 'role', 'mfaEnabled', 'mfaSecret',
+    ];
+
+    protected $casts = [
+        'mfaEnabled' => 'boolean',
     ];
 
     protected $hidden = [
@@ -29,6 +37,16 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne(Customer::class, 'userId', 'id');
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class, 'userId', 'id');
+    }
+
+    public function loginCodes()
+    {
+        return $this->hasMany(CustomerLoginCode::class, 'userId', 'id');
     }
 
     public function auditLogs()

@@ -1,14 +1,19 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "zy538324/errant",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Errant: gallery-grade fine-art photography storefront (PHP/Laravel port of Errant-Arts).",
+    "keywords": ["laravel", "errant", "ecommerce"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "intervention/image": "^4.3",
         "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "league/flysystem-aws-s3-v3": "^3.35",
+        "livewire/livewire": "^4.4",
+        "pragmarx/google2fa-qrcode": "^4.0",
+        "stripe/stripe-php": "^21.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -34,18 +39,18 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@/usr/local/bin/php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@/usr/local/bin/php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
-            "@/usr/local/bin/php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@/usr/local/bin/php artisan key:generate --ansi",
-            "@/usr/local/bin/php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@/usr/local/bin/php artisan migrate --graceful --ansi"
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -64,8 +69,7 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
-        },
-        "cache-dir": "/home/palmvine/public_html/errant-arts/dir/cache"
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

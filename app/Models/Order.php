@@ -3,15 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
+use App\Models\Concerns\HasCamelTimestamps;
 
 class Order extends Model
 {
+    use GeneratesStringId, HasCamelTimestamps;
     protected $table = 'Order';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'id', 'customerId', 'status', 'stripeCheckoutId', 'stripePaymentIntentId', 'totalPence', 'currency',
+    ];
+
+    protected $casts = [
+        'totalPence' => 'integer',
     ];
 
     public function customer()

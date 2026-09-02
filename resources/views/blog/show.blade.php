@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="title">{{ $post->title }} - Errant-Arts</x-slot>
+    <x-slot name="title">{{ $post->title }} - Errant Arts</x-slot>
 
     <div class="reading-shell py-12">
         <div class="mb-8">

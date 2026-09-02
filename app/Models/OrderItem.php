@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
 
 class OrderItem extends Model
 {
+    use GeneratesStringId;
     protected $table = 'OrderItem';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -13,6 +15,11 @@ class OrderItem extends Model
 
     protected $fillable = [
         'id', 'orderId', 'artworkId', 'unitPence', 'quantity', 'kind', 'printSku',
+    ];
+
+    protected $casts = [
+        'unitPence' => 'integer',
+        'quantity' => 'integer',
     ];
 
     public function order()
