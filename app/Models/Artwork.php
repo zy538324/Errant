@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
+use App\Models\Concerns\HasCamelTimestamps;
 
 class Artwork extends Model
 {
+    use GeneratesStringId, HasCamelTimestamps, HasFactory;
     protected $table = 'Artwork';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -14,6 +18,13 @@ class Artwork extends Model
         'id', 'title', 'slug', 'description', 'status', 'category', 'tagsJson',
         'pricePence', 'currency', 'stockOnHand', 'widthPx', 'heightPx',
         'previewUrl', 'collectionId',
+    ];
+
+    protected $casts = [
+        'pricePence' => 'integer',
+        'stockOnHand' => 'integer',
+        'widthPx' => 'integer',
+        'heightPx' => 'integer',
     ];
 
     public function collection()

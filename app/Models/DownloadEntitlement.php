@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
 
 class DownloadEntitlement extends Model
 {
+    use GeneratesStringId;
     protected $table = 'DownloadEntitlement';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -13,6 +15,11 @@ class DownloadEntitlement extends Model
 
     protected $fillable = [
         'id', 'customerId', 'orderId', 'artworkId', 'maxDownloads', 'downloadCount', 'expiresAt', 'createdAt',
+    ];
+
+    protected $casts = [
+        'expiresAt' => 'datetime',
+        'createdAt' => 'datetime',
     ];
 
     public function customer()

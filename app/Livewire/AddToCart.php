@@ -2,30 +2,23 @@
 
 namespace App\Livewire;
 
+use App\Support\Cart;
 use Livewire\Component;
 
 class AddToCart extends Component
 {
-    public $artworkId;
-    public $kind = 'digital';
-    public $printSku = null;
-    public $quantity = 1;
+    public string $artworkId;
+    public string $kind = 'digital';
+    public ?string $printSku = null;
+    public int $quantity = 1;
 
     public function addToCart()
     {
-        // TODO: Implement cart functionality
-        // This would typically:
-        // 1. Add to session cart or database
-        // 2. Dispatch event to update cart count
-        // 3. Show success message
-        
-        $this->dispatch('cart-updated', [
-            'artworkId' => $this->artworkId,
-            'quantity' => $this->quantity,
-            'kind' => $this->kind,
-        ]);
+        Cart::add($this->artworkId, $this->kind, $this->printSku, $this->quantity);
 
-        session()->flash('message', 'Added to cart!');
+        $this->dispatch('cart-updated', count: Cart::count());
+
+        session()->flash('message', 'Added to cart.');
     }
 
     public function render()

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
+use App\Models\Concerns\HasCamelTimestamps;
 
 class MarketingCampaignRecipient extends Model
 {
+    use GeneratesStringId, HasCamelTimestamps;
     protected $table = 'MarketingCampaignRecipient';
     public $incrementing = false;
     protected $keyType = 'string';

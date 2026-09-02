@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\GeneratesStringId;
 
 class Customer extends Model
 {
+    use GeneratesStringId;
     protected $table = 'Customer';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -13,6 +15,12 @@ class Customer extends Model
 
     protected $fillable = [
         'id', 'userId', 'fullName', 'marketingConsent', 'consentAt', 'retentionLocked',
+    ];
+
+    protected $casts = [
+        'consentAt' => 'datetime',
+        'marketingConsent' => 'boolean',
+        'retentionLocked' => 'boolean',
     ];
 
     public function user()
